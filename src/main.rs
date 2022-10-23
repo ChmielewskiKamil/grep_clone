@@ -14,12 +14,11 @@ fn main() {
     let args = Cli::parse();
 
     let result = std::fs::read_to_string("test_file.txt");
-    match result {
-        Ok(content) => {
-            println!("Content of the file: {}", content);
-        }
+    let content = match result {
+        Ok(content) => content,
         Err(error) => {
-            println!("Can't open the file, here is the error: {}", error);
+            panic!("Can't deal with: {}, gonna exit here...", error)
         }
-    }
+    };
+    println!("Content of the file: "{content});
 }
