@@ -20,5 +20,5 @@ fn main() {
             panic!("Can't deal with: {}, gonna exit here...", error)
         }
     };
-    println!("Content of the file: "{content});
+    println!("Content of the file: {}", content);
 }
