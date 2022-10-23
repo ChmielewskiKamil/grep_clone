@@ -13,11 +13,13 @@ fn main() {
     // parse method is meant to be used in the main function
     let args = Cli::parse();
 
-    let content = std::fs::read_to_string(&args.path).expect("Could not read the file :(");
-
-    for line in content.lines() {
-        if line.contains(&args.pattern) {
-            println!("{}", line);
+    let result = std::fs::read_to_string("test_file.txt");
+    match result {
+        Ok(content) => {
+            println!("Content of the file: {}", content);
+        }
+        Err(error) => {
+            println!("Can't open the file, here is the error: {}", error);
         }
     }
 }
