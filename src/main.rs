@@ -13,13 +13,9 @@ fn main() -> Result<(), Box<dyn std::error::Error>> {
     // parse method is meant to be used in the main function
     let args = Cli::parse();
 
-    let result = std::fs::read_to_string("test_file.txt");
-    let content = match result {
-        Ok(content) => content,
-        Err(error) => {
-            return Err(error.into());
-        }
-    };
+    let content = std::fs::read_to_string("test_file.txt")?;
+
     println!("Content of the file: {}", content);
+
     Ok(())
 }
