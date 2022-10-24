@@ -9,7 +9,7 @@ struct Cli {
     path: std::path::PathBuf,
 }
 
-fn main() {
+fn main() -> Result<(), Box<dyn std::error::Error>> {
     // parse method is meant to be used in the main function
     let args = Cli::parse();
 
@@ -17,8 +17,9 @@ fn main() {
     let content = match result {
         Ok(content) => content,
         Err(error) => {
-            panic!("Can't deal with: {}, gonna exit here...", error)
+            return Err(error.into());
         }
     };
     println!("Content of the file: {}", content);
+    Ok(())
 }
