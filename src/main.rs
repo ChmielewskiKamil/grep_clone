@@ -10,7 +10,8 @@ struct Cli {
 }
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    let content = std::fs::read_to_string("test_file.txt")?;
+    let path = "test_file.txt";
+    let content = std::fs::read_to_string(path)?;
 
     println!("Content of the file: {}", content);
 
