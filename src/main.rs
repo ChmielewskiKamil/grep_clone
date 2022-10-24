@@ -10,9 +10,6 @@ struct Cli {
 }
 
 fn main() -> Result<(), Box<dyn std::error::Error>> {
-    // parse method is meant to be used in the main function
-    let args = Cli::parse();
-
     let content = std::fs::read_to_string("test_file.txt")?;
 
     println!("Content of the file: {}", content);
