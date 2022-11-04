@@ -1,4 +1,5 @@
-use std::{env, fs, process};
+use grep_clone::Config;
+use std::{env, process};
 
 fn main() {
     // argument handling //
@@ -14,29 +15,8 @@ fn main() {
     println!("Searching for: {}", config.search_query);
     println!("Path to search: {}", config.path_to_search);
 
-    // text file handling //
-
-    let contents = fs::read_to_string(config.path_to_search).expect("Expected to read the file");
-
-    println!("Found following content: \n{contents}");
-}
-
-struct Config {
-    search_query: String,
-    path_to_search: String,
-}
-
-impl Config {
-    fn build(args: &[String]) -> Result<Config, &'static str> {
-        if args.len() < 3 {
-            return Err("not enough arguments");
-        }
-        let search_query = args[1].clone();
-        let path_to_search = args[2].clone();
-
-        Ok(Config {
-            search_query,
-            path_to_search,
-        })
+    if let Err(e) = grep_clone::run(config) {
+        println!("Application error: {e}");
+        process::exit(1);
     }
 }
