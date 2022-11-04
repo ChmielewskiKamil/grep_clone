@@ -14,7 +14,10 @@ fn main() {
     println!("Searching for: {}", config.search_query);
     println!("Path to search: {}", config.path_to_search);
 
-    run(config);
+    if let Err(e) = run(config) {
+        println!("Application error: {e}");
+        process::exit(1);
+    }
 }
 
 struct Config {
