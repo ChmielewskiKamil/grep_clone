@@ -1,4 +1,4 @@
-use std::{env, fs, process};
+use std::{env, error::Error, fs, process};
 
 fn main() {
     // argument handling //
@@ -37,9 +37,10 @@ impl Config {
     }
 }
 
-fn run(config: Config) {
+fn run(config: Config) -> Result<(), Box<dyn Error>> {
     // text file handling //
-    let contents = fs::read_to_string(config.path_to_search).expect("Expected to read the file");
+    let contents = fs::read_to_string(config.path_to_search)?;
 
     println!("Found following content: \n{contents}");
+    Ok(())
 }
