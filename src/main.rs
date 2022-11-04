@@ -14,11 +14,7 @@ fn main() {
     println!("Searching for: {}", config.search_query);
     println!("Path to search: {}", config.path_to_search);
 
-    // text file handling //
-
-    let contents = fs::read_to_string(config.path_to_search).expect("Expected to read the file");
-
-    println!("Found following content: \n{contents}");
+    run(config);
 }
 
 struct Config {
@@ -39,4 +35,11 @@ impl Config {
             path_to_search,
         })
     }
+}
+
+fn run(config: Config) {
+    // text file handling //
+    let contents = fs::read_to_string(config.path_to_search).expect("Expected to read the file");
+
+    println!("Found following content: \n{contents}");
 }
