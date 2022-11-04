@@ -1,4 +1,4 @@
-use std::{env, fs};
+use std::{env, fs, process};
 
 fn main() {
     // argument handling //
@@ -6,7 +6,10 @@ fn main() {
     let args: Vec<String> = env::args().collect();
 
     // parse_config is only borrowing args now
-    let config = Config::new(&args);
+    let config = Config::build(&args).unwrap_or_else(|err| {
+        println!("Problem parsing arguments: {err}");
+        process::exit(1);
+    });
 
     println!("Searching for: {}", config.search_query);
     println!("Path to search: {}", config.path_to_search);
