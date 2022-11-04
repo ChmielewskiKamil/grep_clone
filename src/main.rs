@@ -5,21 +5,30 @@ fn main() {
 
     let args: Vec<String> = env::args().collect();
 
-    let (search_query, path_to_search) = parse_config(&args);
+    // parse_config is only borrowing args now
+    let config = parse_config(&args);
 
-    println!("Searching for: {}", search_query);
-    println!("Path to search: {}", path_to_search);
+    println!("Searching for: {}", config.search_query);
+    println!("Path to search: {}", config.path_to_search);
 
     // text file handling //
 
-    let contents = fs::read_to_string(path_to_search).expect("Expected to read the file");
+    let contents = fs::read_to_string(config.path_to_search).expect("Expected to read the file");
 
     println!("Found following content: \n{contents}");
 }
 
-fn parse_config(args: &[String]) -> (&str, &str) {
-    let search_query = &args[1];
-    let path_to_search = &args[2];
+struct Config {
+    search_query: String,
+    path_to_search: String,
+}
 
-    (search_query, path_to_search)
+fn parse_config(args: &[String]) -> Config {
+    let search_query = args[1].clone();
+    let path_to_search = args[2].clone();
+
+    Config {
+        search_query,
+        path_to_search,
+    }
 }
