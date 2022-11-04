@@ -6,7 +6,7 @@ fn main() {
     let args: Vec<String> = env::args().collect();
 
     // parse_config is only borrowing args now
-    let config = parse_config(&args);
+    let config = Config::new(&args);
 
     println!("Searching for: {}", config.search_query);
     println!("Path to search: {}", config.path_to_search);
@@ -23,12 +23,14 @@ struct Config {
     path_to_search: String,
 }
 
-fn parse_config(args: &[String]) -> Config {
-    let search_query = args[1].clone();
-    let path_to_search = args[2].clone();
+impl Config {
+    fn new(args: &[String]) -> Config {
+        let search_query = args[1].clone();
+        let path_to_search = args[2].clone();
 
-    Config {
-        search_query,
-        path_to_search,
+        Config {
+            search_query,
+            path_to_search,
+        }
     }
 }
