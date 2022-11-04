@@ -25,6 +25,9 @@ struct Config {
 
 impl Config {
     fn new(args: &[String]) -> Config {
+        if args.len() < 3 {
+            panic!("not enough arguments");
+        }
         let search_query = args[1].clone();
         let path_to_search = args[2].clone();
 
