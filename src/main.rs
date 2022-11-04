@@ -24,16 +24,16 @@ struct Config {
 }
 
 impl Config {
-    fn new(args: &[String]) -> Config {
+    fn build(args: &[String]) -> Result<Config, &'static str> {
         if args.len() < 3 {
             panic!("not enough arguments");
         }
         let search_query = args[1].clone();
         let path_to_search = args[2].clone();
 
-        Config {
+        Ok(Config {
             search_query,
             path_to_search,
-        }
+        })
     }
 }
