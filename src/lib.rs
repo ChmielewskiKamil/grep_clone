@@ -23,7 +23,9 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
     // text file handling //
     let contents = fs::read_to_string(config.path_to_search)?;
 
-    println!("Found following content: \n{contents}");
+    for line in search(&config.search_query, &contents) {
+        println!("{line}");
+    }
     Ok(())
 }
 
