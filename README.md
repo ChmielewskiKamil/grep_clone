@@ -1,1 +1,1 @@
-Going through the Rust Book and trying different stuff out 🦀🦀🦀
+Going through the Rust Book and trying stuff 🦀🦀🦀
