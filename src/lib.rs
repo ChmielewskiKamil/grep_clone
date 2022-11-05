@@ -1,7 +1,8 @@
-use std::{error::Error, fs};
+use std::{env, error::Error, fs};
 pub struct Config {
     pub search_query: String,
     pub path_to_search: String,
+    pub ignore_case: bool,
 }
 
 impl Config {
@@ -11,10 +12,12 @@ impl Config {
         }
         let search_query = args[1].clone();
         let path_to_search = args[2].clone();
+        let ignore_case = env::var("IGNORE_CASE").is_ok();
 
         Ok(Config {
             search_query,
             path_to_search,
+            ignore_case,
         })
     }
 }
@@ -23,7 +26,13 @@ pub fn run(config: Config) -> Result<(), Box<dyn Error>> {
     // text file handling //
     let contents = fs::read_to_string(config.path_to_search)?;
 
-    for line in search(&config.search_query, &contents) {
+    let results = if config.ignore_case {
+        search_case_insensitive(&config.search_query, &contents)
+    } else {
+        search(&config.search_query, &contents)
+    };
+
+    for line in results {
         println!("{line}");
     }
     Ok(())
